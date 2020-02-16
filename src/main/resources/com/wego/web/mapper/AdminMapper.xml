@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wego.web.mapper.AdminMapper">
+   
+   <select id="createAdmin" parameterType="hashMap">
+   		${CREATE_ADMIN}
+   </select>
+   
+   <insert id="insertAdmin" parameterType="com.wego.web.admin.Admin">
+       insert into admin (admin_id, admin_pwd, tel,admin_addr) values (
+           				#{admin_id}, #{admin_pwd}, #{tel}, #{admin_addr})
+   </insert>
+   
+    <select id="adminLogin" resultType="com.wego.web.admin.Admin">
+		select *
+	    from admin
+	    where admin_id like #{admin_id}
+	    and admin_pwd like #{admin_pwd}
+	</select>
+	
+	<select id="cartlead" resultType="com.wego.web.tourism.Tourism" parameterType="com.wego.web.tourism.Tourism">
+	select tarea, count(*)
+	from tourism
+	group by tarea
+	</select>
+</mapper>

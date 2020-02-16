@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wego.web.mapper.UserMapper">
+   
+   <select id="existId" resultType="int">
+		select count(*)
+		from users
+		where userid like #{userid};
+	</select>
+   <select id="selectByIdPw" resultType="com.wego.web.user.User" >
+    select *
+    from users
+    where userid like #{userid}
+    and passwd like #{passwd}
+   </select>
+   
+	<insert id="insertUser" parameterType="com.wego.web.user.User">
+       insert into users (userid, passwd, username, nickname, birth, tel) values (
+           #{userid}, #{passwd}, #{username}, #{nickname}, #{birth}, #{tel}
+       )
+   </insert>
+   <delete id="removeUser" parameterType="com.wego.web.user.User">
+   		delete from users
+   		where userid like #{userid}
+   		and passwd like #{passwd};
+   </delete>
+   
+   <select id="createUser" parameterType="hashMap">
+   		${CREATE_USER}
+   </select>
+   
+   <select id="dropUser" parameterType="hashMap">
+   		${DROP_USER}
+   </select>
+   <select id="truncateUser" parameterType="hashmap">
+		${TRUNCATE_USER}
+	</select>
+	
+	<select id="selectFindId" parameterType="String" resultType="com.wego.web.user.User">
+		select userid 
+		from users
+		where username like #{username}
+		and tel like #{tel}
+	</select>
+	<select id="selectfindPwd" parameterType="String" resultType="com.wego.web.user.User">
+		select passwd 
+		from users
+		where userid like #{userid}
+		and tel like #{tel}
+	</select>
+   
+</mapper>
